@@ -89,6 +89,11 @@ L.Toolbar = L.Class.extend({
 		return depth;
 	}
 });
+
+L.toolbar = function(options) {
+    return new L.Toolbar(options);
+};
+
 L.ToolbarAction = L.Handler.extend({
 	statics: {
 		baseClass: 'leaflet-toolbar-icon'
@@ -100,7 +105,7 @@ L.ToolbarAction = L.Handler.extend({
 			className: '',
 			tooltip: ''
 		},
-		subToolbar: new L.Toolbar()
+		subToolbar: L.toolbar()
 	},
 
 	initialize: function(options) {
@@ -158,7 +163,7 @@ L.ToolbarAction = L.Handler.extend({
 			/* Make a copy of args so as not to pollute the args array used by other actions. */
 			args = [].slice.call(args);
 			args.push(this);
-			
+
 			subToolbar.addTo.apply(subToolbar, args);
 			subToolbar.appendToContainer(container);
 
@@ -178,6 +183,7 @@ L.ToolbarAction = L.Handler.extend({
 L.ToolbarAction.extendOptions = function(options) {
 	return this.extend({ options: options });
 };
+
 L.Toolbar.Control = L.Toolbar.extend({
 	statics: {
 		baseClass: 'leaflet-control-toolbar ' + L.Toolbar.baseClass
@@ -205,6 +211,11 @@ L.Control.Toolbar = L.Control.extend({
 		return L.DomUtil.create('div', '');
 	}
 });
+
+L.toolbar.control = function(options) {
+    return new L.Toolbar.Control(options);
+};
+
 // A convenience class for built-in popup toolbars.
 
 L.Toolbar.Popup = L.Toolbar.extend({
